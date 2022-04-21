@@ -1,0 +1,177 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
+}
+
+type ModelUserProfileConnection @aws_api_key @aws_iam {
+  items: [UserProfile]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+type Mutation {
+  createUserProfile(condition: ModelUserProfileConditionInput, input: CreateUserProfileInput!): UserProfile @aws_api_key @aws_iam
+  deleteUserProfile(condition: ModelUserProfileConditionInput, input: DeleteUserProfileInput!): UserProfile @aws_api_key @aws_iam
+  updateUserProfile(condition: ModelUserProfileConditionInput, input: UpdateUserProfileInput!): UserProfile @aws_api_key @aws_iam
+}
+
+type Query {
+  getUserProfile(id: ID!): UserProfile @aws_api_key @aws_iam
+  listUserProfiles(filter: ModelUserProfileFilterInput, limit: Int, nextToken: String): ModelUserProfileConnection @aws_api_key @aws_iam
+  syncUserProfiles(filter: ModelUserProfileFilterInput, lastSync: AWSTimestamp, limit: Int, nextToken: String): ModelUserProfileConnection @aws_api_key @aws_iam
+}
+
+type Subscription {
+  onCreateUserProfile: UserProfile @aws_api_key @aws_iam @aws_subscribe(mutations : ["createUserProfile"])
+  onDeleteUserProfile: UserProfile @aws_api_key @aws_iam @aws_subscribe(mutations : ["deleteUserProfile"])
+  onUpdateUserProfile: UserProfile @aws_api_key @aws_iam @aws_subscribe(mutations : ["updateUserProfile"])
+}
+
+type UserProfile @aws_api_key @aws_iam {
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  _version: Int!
+  address: String
+  createdAt: AWSDateTime!
+  email: AWSEmail
+  id: ID!
+  image_url: String
+  nickname: String
+  updatedAt: AWSDateTime!
+}
+
+enum ModelAttributeTypes {
+  _null
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+input CreateUserProfileInput {
+  _version: Int
+  address: String
+  email: AWSEmail
+  id: ID
+  image_url: String
+  nickname: String
+}
+
+input DeleteUserProfileInput {
+  _version: Int
+  id: ID!
+}
+
+input ModelBooleanInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  eq: Boolean
+  ne: Boolean
+}
+
+input ModelFloatInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  between: [Float]
+  eq: Float
+  ge: Float
+  gt: Float
+  le: Float
+  lt: Float
+  ne: Float
+}
+
+input ModelIDInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  beginsWith: ID
+  between: [ID]
+  contains: ID
+  eq: ID
+  ge: ID
+  gt: ID
+  le: ID
+  lt: ID
+  ne: ID
+  notContains: ID
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input ModelSizeInput {
+  between: [Int]
+  eq: Int
+  ge: Int
+  gt: Int
+  le: Int
+  lt: Int
+  ne: Int
+}
+
+input ModelStringInput {
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  beginsWith: String
+  between: [String]
+  contains: String
+  eq: String
+  ge: String
+  gt: String
+  le: String
+  lt: String
+  ne: String
+  notContains: String
+  size: ModelSizeInput
+}
+
+input ModelUserProfileConditionInput {
+  address: ModelStringInput
+  and: [ModelUserProfileConditionInput]
+  email: ModelStringInput
+  image_url: ModelStringInput
+  nickname: ModelStringInput
+  not: ModelUserProfileConditionInput
+  or: [ModelUserProfileConditionInput]
+}
+
+input ModelUserProfileFilterInput {
+  address: ModelStringInput
+  and: [ModelUserProfileFilterInput]
+  email: ModelStringInput
+  id: ModelIDInput
+  image_url: ModelStringInput
+  nickname: ModelStringInput
+  not: ModelUserProfileFilterInput
+  or: [ModelUserProfileFilterInput]
+}
+
+input UpdateUserProfileInput {
+  _version: Int
+  address: String
+  email: AWSEmail
+  id: ID!
+  image_url: String
+  nickname: String
+}

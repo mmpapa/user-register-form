@@ -1,0 +1,7 @@
+type UserProfile @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  nickname: String
+  address: String
+  email: AWSEmail
+  image_url: String
+}
