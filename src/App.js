@@ -6,6 +6,8 @@ import "@aws-amplify/ui-react/styles.css";
 
 import UerProfileRegisterPage  from "./pages/UerProfileRegisterPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import Mappp from "./pages/Mappp";
+
 import './App.css';
 
 function App() {
@@ -14,6 +16,7 @@ function App() {
     {({signOut, user}) =>
       <BrowserRouter>
         <Routes>
+          <Route path="/map" element={<Mappp />} />
           <Route path="/profile" element={<UserProfilePage />} />
           <Route path="/" element={<UerProfileRegisterPage />} />
         </Routes>
