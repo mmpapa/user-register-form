@@ -27,7 +27,7 @@ export default function Mappp() {
       }}
       >
         <Marker latitude={latitude} longitude={longitude} />          
-      </MapView>;
+      </MapView>
     </>
     )
 }
