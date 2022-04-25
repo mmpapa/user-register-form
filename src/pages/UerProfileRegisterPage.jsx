@@ -4,16 +4,20 @@ import { API } from "aws-amplify";
 import * as mutaion from "../graphql/mutations"
 import { useNavigate } from "react-router-dom";
 
+import { useAuthenticator } from '@aws-amplify/ui-react';
 
 export default function UserProfileRegisterPage() {
     let navigate = useNavigate();
+    const { user } = useAuthenticator((context) => [context.user]);
     const [nickName, setNickName] = useState("");
     const [addres, setAddress] = useState("");
     const [email, setEmail] = useState("");
 
+
     const profileOverrides = {
         "TextField29766922": {
           onChange: (event) => { setNickName(event.target.value) }
+          , value : user.username
         },
         "TextField29766923": {
           onChange: (event) => { setAddress(event.target.value) }

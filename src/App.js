@@ -14,14 +14,16 @@ function App() {
   return (
     <Authenticator socialProviders={['amazon', 'apple', 'facebook', 'google']}> 
     {({signOut, user}) =>
+      <div>
       <BrowserRouter>
         <Routes>
           <Route path="/map" element={<Mappp />} />
           <Route path="/profile" element={<UserProfilePage />} />
           <Route path="/" element={<UerProfileRegisterPage />} />
         </Routes>
-        <button onClick={signOut}>Sign out</button>
       </BrowserRouter>
+      <button onClick={signOut}>Sign out</button>
+      </div>
       
     }
     </Authenticator>
